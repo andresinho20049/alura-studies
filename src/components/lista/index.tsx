@@ -1,29 +1,19 @@
-import style from "./Lista.module.scss"
+import { TarefaType } from "../../types/tarefaType";
+import style from "./Lista.module.scss";
+import Item from "./item";
 
-const Lista = () => {
-  const tarefas = [
-    {
-      tarefa: "React",
-      tempo: "02:00:00",
-    },
-    {
-      tarefa: "Javascript",
-      tempo: "01:00:00",
-    },
-    {
-      tarefa: "Typescript",
-      tempo: "03:00:00",
-    },
-  ];
+type ListaPropsType = {
+  tarefas: TarefaType[]
+}
+
+const Lista = ({tarefas}: ListaPropsType) => {
+  
   return (
     <aside className={style.listaTarefas}>
       <h2>Estudos do dia</h2>
       <ul>
         {tarefas.map((item, index) => (
-          <li className={style.item} key={index}>
-            <h3>{item.tarefa}</h3>
-            <span>{item.tempo}</span>
-          </li>
+          <Item key={index} {...item} />
         ))}
       </ul>
     </aside>
