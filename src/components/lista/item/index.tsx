@@ -1,11 +1,7 @@
+import { TarefaType } from "../../../types/tarefaType";
 import style from "./Item.module.scss";
 
-type ItemPropsType = {
-  tarefa: string;
-  tempo: string;
-};
-
-const Item = ({ tarefa, tempo }: ItemPropsType) => {
+const Item = ({ tarefa, tempo, completado, selecionado, id }: TarefaType) => {
   return (
     <li className={style.item}>
       <h3>{tarefa}</h3>

@@ -3,29 +3,35 @@ import { TarefaType } from "../../types/tarefaType";
 import Botao from "../botao";
 import style from "./Formulario.module.scss";
 
-
 type FormularioPropsType = {
   setTarefas: Dispatch<SetStateAction<TarefaType[]>>
 }
 
 class Formulario extends Component<FormularioPropsType> {
 
-
   handleAddTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const timemillis = new Date().getTime();
+    const newId = "id_" + timemillis;
+    const newTarefa = { ...this.state, id: newId };
 
-    this.props.setTarefas((tarefas) => [...tarefas, this.state])
+    console.log(newTarefa)
+
+    this.props.setTarefas((tarefas) => [...tarefas, newTarefa])
     
     this.setState({
       tarefa: "",
       tempo: "00:00",
+      completado: false,
+      selecionado: false
     });
-    // console.log("handleAddTask called", this.state);
   }
 
-  state: Readonly<TarefaType> = {
+  state: Readonly<Omit<TarefaType, "id">> = {
     tarefa: "",
     tempo: "00:00",
+    completado: false,
+    selecionado: false
   };
 
   render(): ReactNode {
@@ -50,7 +56,7 @@ class Formulario extends Component<FormularioPropsType> {
             name="tempo"
             id="tempo"
             min={"00:00:00"}
-            max={"01:30:00"}
+            max={"08:00:00"}
             value={this.state.tempo}
             onChange={(event) => this.setState({...this.state, tempo: event.target.value})}
             required
