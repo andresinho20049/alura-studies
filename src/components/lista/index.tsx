@@ -1,19 +1,17 @@
-import { TarefaType } from "../../types/tarefaType";
+import { useTarefaContext } from "../../context/TarefaContext";
 import style from "./Lista.module.scss";
 import Item from "./item";
 
-type ListaPropsType = {
-  tarefas: TarefaType[]
-}
+const Lista = () => {
 
-const Lista = ({tarefas}: ListaPropsType) => {
+  const { tarefas } = useTarefaContext();
   
   return (
     <aside className={style.listaTarefas}>
       <h2>Estudos do dia</h2>
       <ul>
-        {tarefas.map((item, index) => (
-          <Item key={index} {...item} />
+        {tarefas.map((item) => (
+          <Item key={item.id} {...item} />
         ))}
       </ul>
     </aside>
