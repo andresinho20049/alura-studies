@@ -6,7 +6,7 @@ import style from "./Cronometro.module.scss";
 import Relogio from "./relogio";
 
 const Cronometro = () => {
-  const { getSelected, finishTarefa } = useTarefaContext();
+  const { getSelected, setIsTiming, finishTarefa } = useTarefaContext();
 
   const [time, setTime] = useState<number>(0);
 
@@ -19,6 +19,7 @@ const Cronometro = () => {
   }, [time])
 
   const cronometroFunc = useCallback(() => {
+    setIsTiming(true);
     const interval = setInterval(() => {
       setTime((currentTime) => {
         if (currentTime > 0) {

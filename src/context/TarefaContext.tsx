@@ -14,6 +14,8 @@ type ITarefaData = {
   handlerAddNewTarefa: (tarefa: TarefaType) => void;
   selectTarefa: (id: string) => void;
   finishTarefa: () => void;
+  isTiming: boolean;
+  setIsTiming: (isTiming: boolean) => void;
 };
 
 export const TarefaContext = createContext({} as ITarefaData);
@@ -28,6 +30,7 @@ type ITarefaProviderProps = {
 
 export const TarefaProvider = ({ children }: ITarefaProviderProps) => {
   const [tarefas, setTarefas] = useState<TarefaType[]>([]);
+  const [isTiming, setIsTiming] = useState<boolean>(false);
 
   const getSelected = useMemo(() => {
     return tarefas.find((t) => t.selecionado);
@@ -62,6 +65,7 @@ export const TarefaProvider = ({ children }: ITarefaProviderProps) => {
         return t;
       })
     );
+    setIsTiming(false);
   }, [getSelected]);
 
   return (
@@ -72,6 +76,9 @@ export const TarefaProvider = ({ children }: ITarefaProviderProps) => {
         handlerAddNewTarefa,
         selectTarefa,
         finishTarefa,
+
+        isTiming,
+        setIsTiming
       }}
     >
       {children}
